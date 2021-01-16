@@ -24,7 +24,7 @@ class App:
         self.treeview = self.builder.get_object('treeview')
 
         # criando objetos
-        self.liststore = Gtk.ListStore(str, int, int)
+        self.liststore = Gtk.ListStore(str, int, str)
         renderText = Gtk.CellRendererText()
         renderText2 = Gtk.CellRendererText()
         renderText3 = Gtk.CellRendererText()
@@ -52,10 +52,14 @@ class App:
         self.entrada_cpf.set_text('')
 
     def gravar_clicado(self, botao):
-        nome = self.entrada_nome.get_text()
-        idade = self.entrada_idade.get_text()
-        cpf = self.entrada_cpf.get_text()
-        if all([nome, idade, cpf]):
+        nome = self.entrada_nome.get_text().strip()
+        idade = self.entrada_idade.get_text().strip()
+        cpf = self.entrada_cpf.get_text().strip()
+        condicoes = all([
+            nome.isalpha(), idade.isnumeric(),
+            all([nome, idade, cpf])
+        ])
+        if condicoes:
             pessoa = Pessoa(nome=nome, idade=idade, cpf=cpf)
             session.add(pessoa)
             session.commit()

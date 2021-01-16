@@ -17,7 +17,7 @@ class Pessoa(Base):
     id = Column(Integer, primary_key = True)
     nome = Column(String)
     idade = Column(Integer)
-    cpf = Column(Integer)
+    cpf = Column(String)
 
     def __repr__(self):
         return f"Pessoa(nome={self.nome}, idade = {self.idade})"
